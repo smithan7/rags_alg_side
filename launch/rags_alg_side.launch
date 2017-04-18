@@ -1,0 +1,9 @@
+<launch>
+
+   <!-- my node -->
+   <node name="rags_alg_side" pkg="rags_alg_side" type="rags_alg_side.py" output="screen">
+	<param name="use_rags" value="true"/>
+	<param name="map_num" value="0"/>
+   </node>
+
+</launch>
