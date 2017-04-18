@@ -8,11 +8,11 @@ if __name__ == '__main__':
 	rospy.init_node('rags_alg_side', anonymous=True)
 	
 	use_rags = rospy.get_param( '~use_rags' )
-	map_num = rospy.get_param( '~map_num' )
+	map_name = rospy.get_param( '~map_name' )
 
 	if use_rags:
-		rags = RAGS( map_num )
+		rags = RAGS( map_name )
 	else:
-		astar = ASTAR( map_num )
+		astar = ASTAR( map_name )
 
 	rospy.spin()

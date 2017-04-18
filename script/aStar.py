@@ -16,19 +16,20 @@ class ASTAR:
 	edges_to_scan_publisher = rospy.Publisher("/edges_to_scan", Scan_Goals, queue_size=10)
 	nav_goal_publisher = rospy.Publisher("/waypoint_to_travel", Nav_Goal, queue_size=10)
 
-	def __init__( self, map_num ):
-		print "Running A*"
+	def __init__( self, map_name ):
+		print "Running A* on " , map_name
 		rospy.Subscriber("/edge_cost", Edge_Costs, self.edge_costs_callback)
 		rospy.Subscriber("/waiting_on_RAGS", Query_RAGS, self.waiting_on_RAGS_callback)		
 
-		if map_num == 0:
-			print "loading path for map 0"
-			f = open("/home/ubuntu/catkin_ws/src/rags_alg_side/graphs/aStarPath0.txt", "r")
-			lines = f.readlines()
-			for line in lines:
-				[lon, lat] = line.split(",")
-				self.lats.append( float( lat ) )
-				self.lons.append( float( lon ) )
+		print "loading path for map ", map_name
+		f = open("/home/ubuntu/catkin_ws/src/rags_alg_side/graphs/" + map_name, "r")
+		lines = f.readlines()
+		print lines
+		for line in lines:
+			print line
+			[lon, lat] = line.split(",")
+			self.lats.append( float( lat ) )
+			self.lons.append( float( lon ) )
 		print "loaded A* path"
 
 	def edge_costs_callback( self, edge_costs ):
