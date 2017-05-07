@@ -7,6 +7,7 @@ import time
 import sys
 import math
 import numpy as np
+import random
 
 class ASTAR:
 
@@ -22,7 +23,7 @@ class ASTAR:
 		rospy.Subscriber("/waiting_on_RAGS", Query_RAGS, self.waiting_on_RAGS_callback)		
 
 		print "loading path for map ", map_name
-		f = open("/home/ubuntu/catkin_ws/src/rags_alg_side/graphs/" + map_name, "r")
+		f = open("/home/nvidia/catkin_ws/src/rags_alg_side/graphs/" + map_name, "r")
 		lines = f.readlines()
 		print lines
 		for line in lines:
@@ -37,13 +38,17 @@ class ASTAR:
 		# get current vertice and iterate to next in path
 		
 	def waiting_on_RAGS_callback( self, query ):
-			print "recieved RAGS query: ", query
+			
 			if query.request_type == 0:
+				print "recieved RAGS scan goals request while in A Star"
 				# requesting edges to scan, send empty list
 				sg = Scan_Goals()
+				print "sending no scan vertices"
 				self.edges_to_scan_publisher.publish( sg )
+				return
 			
 			if query.request_type == 1:
+				print "recieved RAGS nav goal request"
 				# requesting a nav goal
 				# get current vertice and iterate to next in path
 				c_index = query.my_vertex_index + 1
@@ -55,6 +60,6 @@ class ASTAR:
 					ng.goal_index = c_index
 					# publish nav_goal
 					self.nav_goal_publisher.publish( ng )
-				
+				return				
 		
 

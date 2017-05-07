@@ -3,7 +3,7 @@
    <!-- my node -->
    <node name="rags_alg_side" pkg="rags_alg_side" type="rags_alg_side.py" output="screen">
 	<param name="use_rags" type="bool" value="false"/>
-	<param name="map_name" value="testmap.txt"/>
+	<param name="map_name" value="aStar_path1.txt"/>
    </node>
 
 </launch>
